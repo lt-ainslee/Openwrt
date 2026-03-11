@@ -37,3 +37,21 @@ A template for building OpenWrt with GitHub Actions
 ## License
 
 [MIT](https://github.com/P3TERX/Actions-OpenWrt/blob/main/LICENSE) © [**P3TERX**](https://p3terx.com)
+
+## Auto Build Workflow Blueprint
+
+If you prefer a "set-and-forget" pipeline, you can use `.github/workflows/auto-build-openwrt.yml`:
+
+- Supports manual trigger (`workflow_dispatch`) with configurable source repo/branch.
+- Supports weekly scheduled build (`cron`) for unattended updates.
+- Supports auto-build on push when your `.config`, `files/`, `patches/`, or DIY scripts change.
+- Caches `dl/` and `ccache` to reduce rebuild time.
+- Uploads firmware as artifacts by default and optionally publishes a GitHub Release.
+
+Recommended setup flow:
+
+1. Prepare and commit your `.config`.
+2. Put custom file overlays under `files/` (optional).
+3. Put patch files under `patches/` (optional).
+4. Keep your feed/package customization in `diy-part1.sh` and `diy-part2.sh`.
+5. Run the workflow manually for the first build, then rely on schedule/push triggers.
